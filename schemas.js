@@ -30,3 +30,17 @@ module.exports.signupSchema = Joi.object({
     username: Joi.string().required(),
     password: Joi.string().required()
 });
+
+module.exports.inAndOutCabinetSchema = Joi.object({
+    cabinet: Joi.object({
+        name: Joi.string().required(),
+        langley: Joi.number().required().integer().min(0),
+    }).required()
+});
+
+module.exports.inAndOutUnitSchema = Joi.object({
+    unit: Joi.object({
+        name: Joi.string().required(),
+        langley: Joi.number().required().integer().min(0),
+    }).required()
+});
