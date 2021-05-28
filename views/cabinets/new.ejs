@@ -1,0 +1,21 @@
+<% layout("layouts/boilerplate") %> 
+
+    <form action="/cabinets" method="POST" novalidate class="needs-validation">
+        <div class="form-group mb-1">
+            <label for="name">Name</label>
+            <input  class="form-control" type="text" id="name" name="cabinet[name]" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="langley">Quantity in Langley</label>
+            <input  class="form-control" type="text" id="langley" value="0" name="cabinet[langley]" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="nakusp">Quantity in Nakusp</label>
+            <input  class="form-control" value="0" type="text" id="nakusp" name="cabinet[nakusp]" required>
+        </div>
+        
+        <button class="btn btn-success mt-3">Add Cabinet</button>
+    </form>
+
+    <a href="/cabinets">Return to Cabinets</a>
+

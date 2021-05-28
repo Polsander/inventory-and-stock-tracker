@@ -1,0 +1,45 @@
+<% layout("layouts/boilerplate") %>
+
+<form action="/admin/dashboard/edit/<%= user._id %>?_method=PUT " method="POST" novalidate class="needs-validation">
+    <div class="form-group mb-1">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username" value="<%= user.username %>" required>
+    </div>
+    <div class="form-group mb-1">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" id="email" name="email" value="<%=user.email %>" required>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="validateUser" value="noValidate" id="noValidate">
+        <label class="form-check-label" for="noValidate">
+          Not Validated
+        </label>
+      </div>
+    
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="validateUser" value="isValidated" id="isValidated">
+        <label class="form-check-label" for="isValidated">
+          User
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="validateUser" value="isAdmin" id="isAdmin">
+        <label class="form-check-label" for="isAdmin">
+          Admin
+        </label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="validateUser" value="isSuperAdmin" id="isSuperAdmin">
+        <label class="form-check-label" for="isSuperAdmin">
+          Super Admin
+        </label>
+      </div>
+      
+<button class="btn btn-primary"> Update </button>
+
+</form>
+
+

@@ -1,0 +1,42 @@
+<% layout("layouts/boilerplate") %>
+
+    <h2>Name:
+        <%= unit.name %>
+    </h2>
+
+    <h2>Cabinet:
+        <%= cabinet.name %>
+    </h2>
+
+    <h2>Stock in Langley:
+        <%= unit.langley %>
+    </h2>
+
+
+
+
+
+    <div class="row mt-5">
+
+        <% if (currentUser.isSuperAdmin) { %>
+            <div class="col">
+                <form action="/units/<%= unit._id %>/edit ">
+                    <button class="btn btn-warning">Edit</button>
+                </form>
+            </div>
+            <% } %>
+                <div class="col">
+                    <form action="/units">
+                        <button class="btn btn-primary">Return to Units</button>
+                    </form>
+                </div>
+
+                <% if (currentUser.isSuperAdmin) { %>
+                    <div class="col">
+                        <form
+                            action="/units/<%=unit._id%>/cabinets/<%=cabinet._id%>/?_method=DELETE" method="POST">
+                            <button class="btn btn-danger ">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+    </div>

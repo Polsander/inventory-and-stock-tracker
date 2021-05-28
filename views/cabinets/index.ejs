@@ -1,0 +1,42 @@
+<% layout("layouts/boilerplate") %>
+
+    <% if (currentUser.isSuperAdmin) {%>
+        <form action="/cabinets/new" class="mt-3 mb-5">
+            <button class="btn btn-success">Add Cabinet</button>
+        </form>
+        <% } %>
+
+
+            <table class="table table.responsive table-sm table-striped table-bordered">
+                <thead class="align-middle text-center">
+                    <tr class="bg-info">
+                        <th rowspan="2" scope="col">#</th>
+                        <th rowspan="2" scope="col"> Cabinet Name</th>
+                        <th colspan="2" scope="col">Quantity</th>
+                    </tr>
+                    <tr class="bg-info">
+                        <th>Langley</th>
+                        <th>Nakusp</th>
+                    </tr>
+                </thead>
+
+                <tbody class="text-center">
+                    <% let i=1 %>
+                        <% for (let cabinet of cabinets) { %>
+                            <tr>
+                                <th scope="row">
+                                    <%= i %>
+                                </th>
+                                <td><a href="cabinets/<%=cabinet._id %> ">
+                                        <%= cabinet.name %>
+                                    </a></td>
+                                <td>
+                                    <%= cabinet.langley %>
+                                </td>
+                                <td>
+                                    <%= cabinet.nakusp %>
+                                </td>
+                                
+                            </tr>
+                            <% i++ %>
+                                <% } %>

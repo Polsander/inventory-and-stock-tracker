@@ -1,0 +1,29 @@
+<% layout("layouts/boilerplate") %>
+
+
+
+    <form action="/units" method="POST" novalidate class="needs-validation">
+        <div class="form-group mb-1">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" id="name" name="unit[name]" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="cabinetName">Cabinet Name</label>
+            <select class="form-control" name="cabinet[name]" id="cabinetName" required>
+                <option value= "" disabled selected> Please Select</option>
+                <% for (let cabinet of cabinets) { %>
+                    <option>
+                        <%= cabinet.name %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+        <div class="form-group mb-1">
+            <label for="langley">Quantity (in Langley)</label>
+            <input class="form-control" value="0" type="text" id="langley" name="unit[langley]" required>
+        </div>
+        
+        <button class="btn btn-success mt-2">Add unit</button>
+    </form>
+
+    <a href="/units">Return to units</a>

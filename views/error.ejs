@@ -1,0 +1,22 @@
+<% layout("layouts/boilerplate") %> 
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Error <%= err.statusCode %> </h4>
+            <p><%= err.message %> </p>
+            <hr>
+            <p class="mb-0">
+                If the message isn't helpful in determining what the problem is,
+                sometimes looking up the error code can help. 
+                <br><br>
+                Stack Error is shown below,
+                but is only available for development purposes.
+            </p>
+            <hr>
+            <p>
+                <%= err.stack %> 
+            </p>
+          </div>
+    </div>
+</div>

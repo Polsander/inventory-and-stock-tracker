@@ -1,0 +1,26 @@
+<% layout("layouts/boilerplate") %>
+
+
+
+    <form action="/cabinets/<%= cabinet._id %>?_method=PUT " method="POST" novalidate class="needs-validation">
+        <div class="form-group mb-1">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" id="name" name="cabinet[name]" value="<%= cabinet.name %>" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="langley">Langley Stock</label>
+            <input class="form-control" type="text" id="langley" name="cabinet[langley]" value="<%=cabinet.langley %>" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="nakusp">Nakusp Stock</label>
+            <input class="form-control" type="text" id="nakusp" name="cabinet[nakusp]" value="<%= cabinet.nakusp  %>" required>
+        </div>
+        
+
+        <button class="mt-3 btn btn-success">Update Cabinet</button>
+    </form>
+
+
+    <form action="/cabinets/<%= cabinet._id %> ">
+    <button class="btn btn-primary mt-2">Back</button>
+    </form>

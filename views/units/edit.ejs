@@ -1,0 +1,33 @@
+<% layout("layouts/boilerplate") %>
+
+
+
+    <form action="/units/<%=unit._id%>/edit/<%= originalCabinet._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+        <div class="form-group mb-1">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" value="<%= unit.name %>" id="name" name="unit[name]" required>
+        </div>
+        <div class="form-group mb-1">
+            <label for="cabinetName">Cabinet Name</label>
+            <select class="form-control" name="cabinet[name]" id="cabinetName" required>
+                <option value="<%= originalCabinet.name %>" selected><%= originalCabinet.name %> </option>
+                <% for (let cabinet of cabinets) { %>
+
+                    <% if (cabinet.name != originalCabinet.name) { %> 
+                    <option>
+                        <%= cabinet.name %>
+                    </option>
+                    <% } %> 
+
+                    <% } %>
+            </select>
+        </div>
+        <div class="form-group mb-1">
+            <label for="langley">Stock in Langley</label>
+            <input class="form-control" type="text" value="<%= unit.langley %>" id="langley" name="unit[langley]" required>
+        </div>
+        
+        <button class="btn btn-success mt-2">Update unit</button>
+    </form>
+
+    <a href="/units">Return to units</a>

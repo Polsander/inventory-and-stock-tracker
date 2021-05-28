@@ -1,0 +1,43 @@
+<% layout("layouts/boilerplate") %>
+    <div class="row">
+        <h2>Name:
+            <%= cabinet.name %>
+        </h2>
+    </div>
+
+    <h2>Quantity in Langley:
+        <%= cabinet.langley %>
+    </h2>
+    <h2>Quantity in Nakusp:
+        <%= cabinet.nakusp %>
+    </h2>
+
+
+    <footer>
+
+
+        <div class="row mt-5">
+            <% if (currentUser.isSuperAdmin) {%> 
+            <div class="col-1">
+                <form action="/cabinets/<%= cabinet._id %>/edit ">
+                    <button class="btn btn-warning">Edit</button>
+                </form>
+            </div>
+            <% } %> 
+            <div class="col-2">
+                <form action="/cabinets">
+                    <button class="btn btn-primary">Return to Cabinets</button>
+                </form>
+            </div>
+            <% if (currentUser.isSuperAdmin) {%> 
+
+            <div class="col offset-10">
+                <form action="/cabinets/<%= cabinet._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            <% } %> 
+
+        </div>
+
+    </footer>

@@ -1,0 +1,28 @@
+<% layout("layouts/boilerplate") %> 
+
+
+    <h1 class="text-center">AZCO Inventory Manager and Tracker</h1>
+
+    <p class="text-center"> This is the inventory manager and tracker. You must <strong>sign in</strong> to be able to use this application</p>
+
+
+<div class="row text-center mt-5">
+
+    <div class="col">
+    <form action="/incoming">
+        <button type="submit" class="btn btn-primary">Incoming</button>
+    </form>
+    </div>
+
+<div class="col">
+    <form action="/outgoing">
+        <button type="submit" class="btn btn-primary">Outgoing</button>
+    </form>
+    </div>
+
+    <div class="col">
+    <form action="/reports">
+        <button type="submit" class="btn btn-primary">Reports</button>
+    </form>
+    </div>
+</div>
