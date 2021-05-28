@@ -136,5 +136,5 @@ app.use((err,req,res,next) => {
 
 //port service
 //special port for Heroku, for dev just use 3000
-const port = process.ENV.PORT
+const port = process.env.PORT
 app.listen(port, () => console.log('serving on heroku'));
