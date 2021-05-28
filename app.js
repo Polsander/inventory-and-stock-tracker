@@ -38,7 +38,7 @@ const store = MongoStore.create({
 });
 
 //'mongodb://localhost:27017/azco'
-// ^^ connect to link above for local dev - production will be different link
+// ^^ connect to link above for local dev - production will be db_Url
 mongoose.connect(db_Url,{
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -63,7 +63,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
-    store,
+    store, //--- Must enable this in production so we use the mongo session.
     secret: process.env.DB_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -105,6 +105,7 @@ const resetRoutes = require('./routes/reset');
 const adminRoutes = require('./routes/admin');
 const incomingRoutes = require('./routes/incoming');
 const outgoingRoutes = require('./routes/outgoing');
+const reportRoutes = require('./routes/reports');
 
 
 
@@ -118,6 +119,7 @@ app.use(logoutRoutes);
 app.use(resetRoutes);
 app.use(incomingRoutes);
 app.use(outgoingRoutes);
+app.use(reportRoutes);
 
 
 //--------Error Handelling--------\\
@@ -138,3 +140,4 @@ app.use((err,req,res,next) => {
 //special port for Heroku, for dev just use 3000
 const port = process.env.PORT
 app.listen(port, () => console.log('serving on heroku'));
+//app.listen(3000, () => console.log('serving on port 3000'));
