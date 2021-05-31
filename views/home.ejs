@@ -14,15 +14,17 @@
     </form>
     </div>
 
-<div class="col">
+    <div class="col">
     <form action="/outgoing">
         <button type="submit" class="btn btn-primary">Outgoing</button>
     </form>
     </div>
 
+    <% if (currentUser && (currentUser.isAdmin || currentUser.isSuperAdmin)) {%> 
     <div class="col">
     <form action="/reports">
         <button type="submit" class="btn btn-primary">Reports</button>
     </form>
     </div>
+    <% } %> 
 </div>

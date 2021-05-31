@@ -15,6 +15,11 @@
           <a class="nav-link" href="/units">Units</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/reports">Reports</a>
+        </li>
+        <% } %> 
+        <% if (currentUser && currentUser.isSuperAdmin) { %> 
+        <li class="nav-item">
           <a class="nav-link" href="/admin/dashboard">Admin</a>
         </li>
         <% } %> 

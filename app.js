@@ -63,7 +63,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
-    store, //--- Must enable this in production so we use the mongo session.
+    store, //--- Must enable this in production so we use the mongo session (in DEPLOYMENT).
     secret: process.env.DB_SECRET,
     resave: false,
     saveUninitialized: true,

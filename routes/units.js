@@ -24,7 +24,7 @@ const validateUnit = (req, res, next) => {
 
 
 //These are the routes for units below
-router.get('/', isLoggedIn, validateUser, catchAsync(async(req,res) => {
+router.get('/', isLoggedIn, validateAdmin, catchAsync(async(req,res) => {
     const cabinets = await Cabinet.find({}).populate('units')
     res.render('units/index', {cabinets});
 }));
@@ -45,7 +45,7 @@ router.post('/', validateUnit, validateSuperAdmin, catchAsync(async(req,res) => 
     res.redirect('/units');
 }));
 
-router.get('/:id', validateUser, catchAsync(async(req,res) => {
+router.get('/:id', validateAdmin, catchAsync(async(req,res) => {
     const findCabinet = await Cabinet.find({units: req.params.id})
     const cabinet = findCabinet[0]
     const unit = await Unit.findById(req.params.id)

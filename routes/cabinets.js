@@ -26,7 +26,7 @@ const validateCabinet = (req, res, next) => {
 // on the main app.js file.
 
 
-router.get('/', isLoggedIn, validateUser, catchAsync(async(req, res) => {
+router.get('/', isLoggedIn, validateAdmin, catchAsync(async(req, res) => {
     const cabinets = await Cabinet.find({})
     res.render('cabinets/index', {cabinets})
  }));
@@ -43,7 +43,7 @@ router.post('/', validateCabinet, validateSuperAdmin, catchAsync(async(req,res) 
 }));
  
 
-router.get('/:id', validateUser, catchAsync(async(req,res) => {
+router.get('/:id', validateAdmin, catchAsync(async(req,res) => {
     const cabinet = await Cabinet.findById(req.params.id)
     res.render('cabinets/show', {cabinet})
 }));
