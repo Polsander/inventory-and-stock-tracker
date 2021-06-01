@@ -1,0 +1,12 @@
+/* This style sheet does not include button styling used for the
+"IN" and "OUT" buttons found on the homepage,
+This style sheet covers any general buttons used for selecting
+between cabinets and units. */
+
+.selector {
+    color: rgb(255, 255, 255);
+    background-color: rgb(54, 54, 190);
+    width: 200px;
+    height:75px;
+    font-size: 30px;
+}

@@ -1,26 +1,26 @@
 <% layout("layouts/outgoingplate") %>
 
 
-    <form action="/outgoing/units?_method=PUT" method="POST" novalidate class="needs-validation">
+    <form action="/out/cabinets?_method=PUT" method="POST" novalidate class="needs-validation">
     <div class="row mb-5">
         <div class="col-6">
             <div class="form-group mb-1">
-                <label for="unitName"> <strong>For Which Unit?</strong> </label>
-                <select class="form-control" name="unit[name]" id="unitName" required>
+                <label for="cabinetName"> <strong>For Which Cabinet?</strong> </label>
+                <select class="form-control" name="cabinet[name]" id="cabinetName" required>
                     <option value="" disabled selected> Please Select</option>
-                    <% for (let unit of units) { %>
+                    <% for (let cabinet of cabinets) { %>
                         <option>
-                            <%= unit.name %>
+                            <%= cabinet.name %>
                         </option>
                         <% } %>
                 </select>
             </div>
         </div>
 
-        <div class="col-2 offset-2">
+        <div class="col-2 offset-3">
             <div class="form-group mb-1">
                 <label for="langley"><strong>Quantity</strong></label>
-                <input class="form-control" value="0" type="text" id="langley" name="unit[langley]" required>
+                <input class="form-control" value="" type="text" id="langley" name="cabinet[langley]" required>
             </div>
         </div>
     </div>
@@ -33,5 +33,5 @@
     </form>
 
     <div>
-        <a href="/outgoing">Back</a>
+        <a href="/out">Back</a>
     </div>

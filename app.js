@@ -103,8 +103,8 @@ const loginRoutes = require('./routes/login');
 const logoutRoutes = require('./routes/logout');
 const resetRoutes = require('./routes/reset');
 const adminRoutes = require('./routes/admin');
-const incomingRoutes = require('./routes/incoming');
-const outgoingRoutes = require('./routes/outgoing');
+const inRoutes = require('./routes/in');
+const outRoutes = require('./routes/out');
 const reportRoutes = require('./routes/reports');
 
 
@@ -117,8 +117,8 @@ app.use(reigsterRoutes);
 app.use(loginRoutes);
 app.use(logoutRoutes);
 app.use(resetRoutes);
-app.use(incomingRoutes);
-app.use(outgoingRoutes);
+app.use(inRoutes);
+app.use(outRoutes);
 app.use(reportRoutes);
 
 

@@ -11,28 +11,45 @@
     </div>
 
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="validateUser" value="noValidate" id="noValidate">
+        <input class="form-check-input" type="radio" name="validateUser" value="noValidate" id="noValidate"
+        <% if (!user.isValidated) { %>
+          checked
+        <% } %> 
+        >
+        
         <label class="form-check-label" for="noValidate">
           Not Validated
         </label>
       </div>
     
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="validateUser" value="isValidated" id="isValidated">
+        <input class="form-check-input" type="radio" name="validateUser" value="isValidated" id="isValidated"
+        <% if (user.isValidated && (!user.isAdmin && !user.isSuperAdmin)) {%> 
+          checked
+        <% } %>  
+        >
         <label class="form-check-label" for="isValidated">
           User
         </label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="validateUser" value="isAdmin" id="isAdmin">
+        <input class="form-check-input" type="radio" name="validateUser" value="isAdmin" id="isAdmin"
+        <% if (user.isAdmin && !user.isSuperAdmin) {%> 
+          checked
+        <% } %>  
+        >
         <label class="form-check-label" for="isAdmin">
           Admin
         </label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="validateUser" value="isSuperAdmin" id="isSuperAdmin">
+        <input class="form-check-input" type="radio" name="validateUser" value="isSuperAdmin" id="isSuperAdmin"
+        <% if (user.isSuperAdmin) {%> 
+          checked
+        <% } %>
+        >
         <label class="form-check-label" for="isSuperAdmin">
           Super Admin
         </label>

@@ -5,7 +5,6 @@ const UnitSchema = new Schema({
     name: String,
     //Langley is the number of units located in langley
     langley: Number,
-    location: String,
     
 });
 

@@ -1,51 +1,35 @@
 const express = require('express');
 const router = express.Router();
-
-const User = require('../models/user');
+const ExpressError = require('../utilities/ExpressError');
 const catchAsync = require('../utilities/catchAsync');
+
+//controller
+const admin = require('../controllers/admin');
 
 //middleware for validation and form submissions
 const {validateSuperAdmin} = require('../middleware');
 
+//Joi schema middleware
+const {editUserSchema} = require('../schemas');
 
-router.get('/dashboard', validateSuperAdmin, catchAsync(async(req,res) => {
-    const users = await User.find({});
-    res.render('users/admin', {users});
-}));
+const verifyEdit = (req, res, next) => {
+    const {error} = editUserSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw (new ExpressError(msg, 400))
+    }
+    else {
+        next();
+    }
+};
 
-router.delete('/dashboard/:id', validateSuperAdmin, catchAsync(async(req,res) => {
-    await User.findByIdAndDelete(req.params.id);
-    req.flash('warning', 'User Deleted');
-    res.redirect('/admin/dashboard');
-}));
 
-router.get('/dashboard/edit/:id', validateSuperAdmin, catchAsync(async(req,res) => {
-    const user = await User.findById(req.params.id);
-    res.render('users/edit', {user});
-}));
+router.get('/dashboard', validateSuperAdmin, catchAsync(admin.getDashboard));
 
-router.put('/dashboard/edit/:id', validateSuperAdmin, catchAsync(async(req,res) => {
-   const user = await User.findByIdAndUpdate(req.params.id, {...req.body});
-   if (req.body.validateUser === "isSuperAdmin") {
-       user.isSuperAdmin = true;
-       user.isAdmin = true;
-       user.isValidated = true;
-   } else if (req.body.validateUser === "isAdmin") {
-    user.isSuperAdmin = false;
-    user.isAdmin = true;
-    user.isValidated = true;
-   } else if (req.body.validateUser === "isValidated") {
-    user.isSuperAdmin = false;
-    user.isAdmin = false;
-    user.isValidated = true;
-   } else {
-    user.isSuperAdmin = false;
-    user.isAdmin = false;
-    user.isValidated = false;
-   }
+router.delete('/dashboard/:id', validateSuperAdmin, catchAsync(admin.deleteUser));
 
-   await user.save()
-   res.redirect('/admin/dashboard')
-}));
+router.get('/dashboard/edit/:id', validateSuperAdmin, catchAsync(admin.getUserEditPage));
+
+router.put('/dashboard/edit/:id', validateSuperAdmin, verifyEdit, catchAsync(admin.editUser));
 
 module.exports = router;

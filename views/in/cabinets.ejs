@@ -1,7 +1,7 @@
 <% layout("layouts/incomingplate") %>
 
 
-    <form action="/incoming/cabinets?_method=PUT" method="POST" novalidate class="needs-validation">
+    <form action="/in/cabinets?_method=PUT" method="POST" novalidate class="needs-validation">
     <div class="row mb-5">
         <div class="col-6">
             <div class="form-group mb-1">
@@ -17,10 +17,10 @@
             </div>
         </div>
 
-        <div class="col-2 offset-2">
+        <div class="col-3 offset-2">
             <div class="form-group mb-1">
                 <label for="langley"><strong>Quantity</strong></label>
-                <input class="form-control" value="0" type="text" id="langley" name="cabinet[langley]" required>
+                <input class="form-control" value="" type="text" id="langley" name="cabinet[langley]" required>
             </div>
         </div>
     </div>
@@ -33,5 +33,5 @@
     </form>
 
     <div>
-        <a href="/incoming">Back</a>
+        <a href="/in">Back</a>
     </div>

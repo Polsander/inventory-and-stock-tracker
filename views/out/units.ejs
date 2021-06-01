@@ -1,7 +1,7 @@
-<% layout("layouts/incomingplate") %>
+<% layout("layouts/outgoingplate") %>
 
 
-    <form action="/incoming/units?_method=PUT" method="POST" novalidate class="needs-validation">
+    <form action="/out/units?_method=PUT" method="POST" novalidate class="needs-validation">
     <div class="row mb-5">
         <div class="col-6">
             <div class="form-group mb-1">
@@ -17,10 +17,10 @@
             </div>
         </div>
 
-        <div class="col-2 offset-2">
+        <div class="col-2 offset-3">
             <div class="form-group mb-1">
                 <label for="langley"><strong>Quantity</strong></label>
-                <input class="form-control" value="0" type="text" id="langley" name="unit[langley]" required>
+                <input class="form-control" value="" type="text" id="langley" name="unit[langley]" required>
             </div>
         </div>
     </div>
@@ -33,5 +33,5 @@
     </form>
 
     <div>
-        <a href="/incoming">Back</a>
+        <a href="/out">Back</a>
     </div>
