@@ -25,13 +25,16 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col text-end">
-            <button class="me-5 mt-5 btn btn-primary btn-lg">Submit</button>
-        </div>
-    </div>
-    </form>
+    <%- include('../partials/modal') %> 
 
-    <div>
-        <a href="/out">Back</a>
+    </form>
+    <div class="row mt-5">
+        <div class="col back">
+            <a href="/out">Back</a>
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary me-5 mt-5 btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Submit
+              </button>
+        </div>
     </div>
