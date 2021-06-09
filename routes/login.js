@@ -8,6 +8,7 @@ const ExpressError = require('../utilities/ExpressError');
 const login = require('../controllers/login');
 
 router.get('/login', login.renderLogin );
+router.get('/', login.renderLogin);
 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), 
 catchAsync(login.loginUser));

@@ -21,11 +21,11 @@ module.exports.editUser = async(req,res) => {
     if (req.body.validateUser === "isSuperAdmin") {
         user.isSuperAdmin = true;
         user.isAdmin = true;
-        user.isValidated = true;
+        user.isValidated = false;
     } else if (req.body.validateUser === "isAdmin") {
      user.isSuperAdmin = false;
      user.isAdmin = true;
-     user.isValidated = true;
+     user.isValidated = false;
     } else if (req.body.validateUser === "isValidated") {
      user.isSuperAdmin = false;
      user.isAdmin = false;

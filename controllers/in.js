@@ -2,6 +2,7 @@ const Cabinet = require('../models/cabinets');
 const Unit = require('../models/units');
 const Log = require('../models/logs');
 const User = require('../models/user');
+const ExpressError = require('../utilities/ExpressError');
 
 module.exports.selectScreen = (req,res) => {
     res.render('in/select')
@@ -32,8 +33,14 @@ module.exports.getUnitPage = async(req,res) => {
 
 module.exports.sendInUnits = async(req,res) => {
     const [unit] = await Unit.find({name: req.body.unit.name});
-    const updatedUnit =
+    const [cabinet] = await Cabinet.find({units: unit.id})
+
+    if (cabinet.nakusp < req.body.unit.langley) {
+        throw new ExpressError("Not enough in Nakusp's stock to be sending in that many units", 403);
+    }
+
     await Unit.updateOne({name: req.body.unit.name}, {langley: parseFloat(unit.langley) + parseFloat(req.body.unit.langley)});
+    await Cabinet.updateOne({name: cabinet.name}, {nakusp: parseFloat(cabinet.nakusp) - parseFloat(req.body.unit.langley) })
     const currentUser = await User.findById(req.user._id)
     const log = new Log({message: `+${req.body.unit.langley} (${unit.name}) units in to Langley`, date: Date()});
     log.users.push(currentUser);

@@ -96,7 +96,7 @@ app.use((req, res, next) => {
 
 
 ///---Using the Route Handlers---\\\
-const homeRoute = require('./routes/home');
+const mainTrackerRoute = require('./routes/mainTracker');
 const cabinetRoutes = require('./routes/cabinets');
 const unitRoutes = require('./routes/units');
 const reigsterRoutes = require('./routes/register');
@@ -107,10 +107,11 @@ const adminRoutes = require('./routes/admin');
 const inRoutes = require('./routes/in');
 const outRoutes = require('./routes/out');
 const reportRoutes = require('./routes/reports');
+const landingPageRoute = require('./routes/landingPage')
 
 
 
-app.use(homeRoute);
+app.use(mainTrackerRoute);
 app.use('/cabinets', cabinetRoutes);
 app.use('/units', unitRoutes);
 app.use('/admin', adminRoutes )
@@ -121,6 +122,7 @@ app.use(resetRoutes);
 app.use(inRoutes);
 app.use(outRoutes);
 app.use(reportRoutes);
+app.use(landingPageRoute);
 
 
 //--------Error Handelling--------\\

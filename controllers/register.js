@@ -7,7 +7,7 @@ module.exports.getRegisterPage = (req, res) => {
 module.exports.registerNewUser = async (req, res, next) => {
     try {
         const { email, username, password } = req.body;
-        const user = new User({ email, username });
+        const user = new User({ email, username});
         const registeredUser = await User.register(user, password);
         req.logout();
         req.login(registeredUser, err => {

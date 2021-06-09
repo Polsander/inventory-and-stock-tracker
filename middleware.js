@@ -9,7 +9,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.validateUser = (req,res,next) => {
     if(!req.user.isValidated) {
-        req.flash('error', 'You Are Not Validated');
+        req.flash('error', 'You Must Be A User');
         return res.redirect('/');
     }
     next();
