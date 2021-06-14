@@ -32,6 +32,8 @@ router.get('/forgot', reset.getResetForm);
 
 router.post('/forgot', catchAsync( reset.forgotPasswordSubmission));
 
+router.post('/forgot/:username', catchAsync( reset.forgotPasswordSubmissionAdmin));
+
 router.get('/reset-password/:id/:token', catchAsync(reset.renderResetPassword));
 
 router.post('/reset-password/:id/:token', validatePasswordReset, catchAsync(reset.resetUserPassword));

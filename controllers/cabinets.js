@@ -1,5 +1,7 @@
 // errors, model schemas, and joi schemas here
 const Cabinet = require('../models/cabinets');
+const User = require('../models/user');
+const Log = require('../models/logs');
 const ExpressError = require('../utilities/ExpressError');
 
 
@@ -21,6 +23,14 @@ module.exports.createCabinet = async(req,res) => {
         }
     );
     await cabinet.save();
+    //grabbing user and logging
+    const currentUser = await User.findById(req.user._id)
+    const log = new Log({message: `Created Cabinet: ${cabinet.name}`, date: Date()});
+    log.users.push(currentUser);
+    currentUser.logs.push(log);
+    await log.save();
+    await currentUser.save();
+    //end
     req.flash('success', 'Successfully created a Cabinet');
     res.redirect('/cabinets');
 };
@@ -37,6 +47,21 @@ module.exports.showEditPage = async(req,res) => {
 
 module.exports.editCabinet = async(req,res) => {
     const cabinet = await Cabinet.findByIdAndUpdate(req.params.id, {...req.body.cabinet});
+    //log user updating cabinet
+    const {nakusp, langley} = req.body.cabinet
+    const currentUser = await User.findById(req.user._id)
+    const log = new Log(
+        {
+            message: `Edited Cabinet: ${cabinet.name}
+                     Langley stock:${langley}, Nakusp stock: ${nakusp}`, 
+            date: Date()
+        }
+        );
+    log.users.push(currentUser);
+    currentUser.logs.push(log);
+    await log.save();
+    await currentUser.save();
+    //end
     req.flash('success', 'Successfully updated Cabinet')
     res.redirect(`/cabinets/${cabinet._id}`)
 };

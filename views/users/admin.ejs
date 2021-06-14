@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col"></th> <!-- Numbers each row of the table-->
                 <th scope="col"></th> <!-- This column will be the delete option -->
+                <th scope="col"></th> <!-- This column will be the reset password option -->
                 <th scope="col"></th> <!-- This column will be the edit option-->
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
@@ -27,6 +28,12 @@
                         <td>
                             <form action="/admin/dashboard/<%= user._id%>?_method=DELETE" method="POST">
                                 <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="/forgot/<%= user.username %>?_method=POST" method="POST">
+                                <button class="btn btn-warning btn-sm">Reset Password</button>
                             </form>
                         </td>
 

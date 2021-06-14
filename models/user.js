@@ -8,7 +8,7 @@ const UserSchema = new Schema ({
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: false,
     },
     isValidated: {type:Boolean, default: false, unique: false},
     isAdmin: {type:Boolean, default: false, unique: false},

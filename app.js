@@ -144,3 +144,5 @@ app.use((err,req,res,next) => {
 const port = process.env.PORT
 app.listen(port, () => console.log('serving on heroku'));
 //app.listen(3000, () => console.log('serving on port 3000'));
+
+//when going into production, don't forget to comment in the appropriate link located in rest.js (controllers)
