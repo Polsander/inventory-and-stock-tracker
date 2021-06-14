@@ -26,7 +26,7 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
         username: user.username
     };
     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
-    const link = `http://localhost:3000/reset-password/${user._id}/${token}`
+    const link = `https://rocky-tor-67401.herokuapp.com//reset-password/${user._id}/${token}`
     // Here is code where the user is sent an email of this link
     const message = {
         to: user.email,
