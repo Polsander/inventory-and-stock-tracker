@@ -39,7 +39,11 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
         "<p>If you did not make a reset password request, you can safely ignore this email." +
         "The link token will expire in 20 minutes from when the request was made. </p>",
     }
-    await sgMail.send(message).then(console.log('email sent'));
+    try {
+        await sgMail.send(message).then(console.log('email sent'));
+    } catch(e) {
+        return res.send(e)
+    }
     console.log(link);
     // Redirecting the user to the forgot form
     req.flash('success', 'An email has been sent with further instructions');
