@@ -3,7 +3,7 @@ const ExpressError = require('../utilities/ExpressError');
 const sgMail = require('@sendgrid/mail');
 const User = require('../models/user');
 
-sgMail.setApiKey(process.env.Email_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //sg = new SendGrid(System.getenv('EMAIL_API_KEY'))
 
 
