@@ -6,8 +6,8 @@ const catchAsync = require('../utilities/catchAsync');
 const ExpressError = require('../utilities/ExpressError');
 const sgMail = require('@sendgrid/mail');
 
-//sgMail.setApiKey(process.env.Email_API_KEY);
-sg = new SendGrid(System.getenv('EMAIL_API_KEY'))
+sgMail.setApiKey(process.env.Email_API_KEY);
+//sg = new SendGrid(System.getenv('EMAIL_API_KEY'))
 
 //Validation Middleware - Protect blank submissions from happening
 const {resetPasswordSchema} = require('../schemas');
