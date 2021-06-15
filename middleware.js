@@ -15,7 +15,7 @@ module.exports.validateUser = (req,res,next) => {
 };
 
 module.exports.validateAdmin = (req,res,next) => {
-    if(!req.user.isAdmin) {
+    if(!req.user.isAdmin && !req.user.isSuperAdmin) {
         req.flash('error', 'You Are Not Admin');
         return (res.redirect('/'));
     };
