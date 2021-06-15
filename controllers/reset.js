@@ -27,8 +27,8 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
     };
     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
     
-    //const link = `https://rocky-tor-67401.herokuapp.com/reset-password/${user._id}/${token}`
-    const link = `localhost:3000/reset-password/${user._id}/${token}`
+    const link = `https://rocky-tor-67401.herokuapp.com/reset-password/${user._id}/${token}`
+    //const link = `localhost:3000/reset-password/${user._id}/${token}`
     // Here is code where the user is sent an email of this link
     const message = {
         to: user.email,
@@ -47,7 +47,7 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
     } catch(e) {
         return res.send(e)
     }
-    console.log(link);
+    //console.log(link);
     // Redirecting the user to the forgot form
     req.flash('success', 'An email has been sent with further instructions');
     res.redirect('/forgot');
@@ -71,7 +71,7 @@ module.exports.forgotPasswordSubmissionAdmin = async(req,res,next) => {
     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
     
     const link = `https://rocky-tor-67401.herokuapp.com/reset-password/${user._id}/${token}`
-    //const link = `localhost:3000/reset-password/${user._id}/${token}`
+    //const link = `http://localhost:3000/reset-password/${user._id}/${token}`
     // Here is code where the user is sent an email of this link
     const message = {
         to: user.email,
@@ -90,7 +90,7 @@ module.exports.forgotPasswordSubmissionAdmin = async(req,res,next) => {
     } catch(e) {
         return res.send(e)
     }
-    console.log(link);
+    //console.log(link);
     // Redirecting the user to the forgot form
     req.flash('success', 'An email has been sent with further instructions');
     res.redirect('/admin/dashboard');

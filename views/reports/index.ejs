@@ -9,14 +9,19 @@
 <% } %> 
 
 <% for (let i = logs.length-1; i>=0; i-- ) {%> 
-    <div class="card mb-2">
-        <div class="card-body">
+    <% const log = logs[i] %>
+    <% for (let user of log.users) { %> 
+    <% if (user.isSuperAdmin) { %> 
+    <div class= "card mb-2 border-warning border-4" >
+        <div class="card-body " >
             <div class="row g-0">
             <div class="col-9">
-            <% const log = logs[i] %>
             <p class="fs-4"><%= log.message %> </p>
+            <p class="fs-4"><%= log.changedName %> </p>
+            <p class="fs-4"><%= log.changedLangley %> </p>
+            <p class="fs-4"><%= log.changedNakusp %> </p>
+            <p class="fs-4"><%= log.changedCabinet %> </p>
                 <p class="fw-light"><%= log.date %> - By:  
-                <% for (let user of log.users) { %> 
                     <a href=""> <%= user.username %> </a></p> 
             </div>
             <% if (currentUser.isSuperAdmin) { %> 
@@ -26,11 +31,32 @@
                 </form>
             </div>
             <% } %> 
-            <% } %>
         </div>
             
         </div>
       </div>
+      <% } else { %>
+          <div class= "card mb-2" >
+        <div class="card-body" >
+            <div class="row g-0">
+            <div class="col-9">
+            <p class="fs-4"><%= log.message %> </p>
+                <p class="fw-light"><%= log.date %> - By:  
+                    <a href=""> <%= user.username %> </a></p> 
+            </div>
+            <% if (currentUser.isSuperAdmin) { %> 
+            <div class="col-3 text-center">
+                <form action="/reports/delete/<%= log._id %>/<%= user._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-outline-danger btn-lg mt-3"><i class="bi bi-trash"></i></button>
+                </form>
+            </div>
+            <% } %> 
+        </div>
+            
+        </div>
+      </div>
+      <% } %>
+      <% } %>  
 <% } %>
 
   

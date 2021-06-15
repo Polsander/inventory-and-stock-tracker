@@ -4,6 +4,10 @@ const User = require('./user');
 
 const LogSchema = new Schema ({
     message: String,
+    changedName: String,
+    changedLangley: String,
+    changedNakusp: String,
+    changedCabinet: String,
     date: Date,
 
     users: [
