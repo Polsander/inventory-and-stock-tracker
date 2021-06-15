@@ -72,28 +72,10 @@ module.exports.forgotPasswordSubmissionAdmin = async(req,res,next) => {
     
     const link = `https://rocky-tor-67401.herokuapp.com/reset-password/${user._id}/${token}`
     //const link = `http://localhost:3000/reset-password/${user._id}/${token}`
-    // Here is code where the user is sent an email of this link
-    const message = {
-        to: user.email,
-        from: 'gorillaman2234@gmail.com',
-        subject: 'AZCO Inventory Tracker - Reset Password',
-        text: `A password reset has been requested for your account,
-        please follow this link to reset your password: ${link}`,
-        html:"<h3> A password reset has been requested for your account</h3>" +
-         "<p> Follow this link to reset your password: </p>" +
-        `<a href="${link}">${link}</a>` +
-        "<p>If you did not make a reset password request, you can safely ignore this email." +
-        "The link token will expire in 20 minutes from when the request was made. </p>",
-    }
-    try {
-        await sgMail.send(message).then(console.log('email sent'));
-    } catch(e) {
-        return res.send(e)
-    }
+    
     //console.log(link);
     // Redirecting the user to the forgot form
-    req.flash('success', 'An email has been sent with further instructions');
-    res.redirect('/admin/dashboard');
+    res.redirect(link);
 }
 
 module.exports.renderResetPassword = async(req, res, next) => {
