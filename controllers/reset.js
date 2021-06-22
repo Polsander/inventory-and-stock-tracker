@@ -32,7 +32,7 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
     // Here is code where the user is sent an email of this link
     const message = {
         to: user.email,
-        from: 'gorillaman2234@gmail.com',
+        from: 'jstuchlik@gmail.com',
         subject: 'AZCO Inventory Tracker - Reset Password',
         text: `A password reset has been requested for your account,
         please follow this link to reset your password: ${link}`,
