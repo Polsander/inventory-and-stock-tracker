@@ -3,6 +3,7 @@
 function modalValue() {
     document.querySelector("#modal-submit").onclick = () => {
         const url = window.location.pathname.split("/");
+        console.log(url);
         const field = document.querySelector("input#langley.form-control");
         //field.value captures the numerical value the user inputted
 
