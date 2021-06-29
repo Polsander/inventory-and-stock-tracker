@@ -15,5 +15,6 @@ isLoggedIn,
 validateSuperAdmin, 
 catchAsync(reports.deleteReport));
 
+router.get('/reports/stock', isLoggedIn, validateAdmin, catchAsync(reports.renderStock));
 
 module.exports = router;

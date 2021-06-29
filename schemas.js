@@ -27,6 +27,7 @@ const Joi = baseJoi.extend(extension);
 module.exports.cabinetSchema = Joi.object({
         cabinet: Joi.object({
             name: Joi.string().required().escapeHTML(),
+            leeway: Joi.number().required().integer().min(0),
         }).required()
 });
 
@@ -35,6 +36,7 @@ module.exports.cabinetEditSchema = Joi.object({
         name: Joi.string().required().escapeHTML(),
         langley: Joi.number().required().integer().min(0),
         nakusp:Joi.number().required().integer().min(0),
+        leeway: Joi.number().required().integer().min(0),
     }).required()
 });
 

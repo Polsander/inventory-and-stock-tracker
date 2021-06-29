@@ -2,6 +2,7 @@
 const Cabinet = require('../models/cabinets');
 const User = require('../models/user');
 const Log = require('../models/logs');
+const Stock = require('../models/stock');
 const ExpressError = require('../utilities/ExpressError');
 const { findById } = require('../models/logs');
 
@@ -19,11 +20,20 @@ module.exports.createCabinet = async (req, res) => {
     const cabinet = new Cabinet(
         {
             name: req.body.cabinet.name,
+            leeway: req.body.cabinet.leeway,
             langley: 0,
             nakusp: 0
         }
     );
     await cabinet.save();
+    //creating a stock tracker for cabinet
+    const stock = new Stock({
+        outData: [],
+        totalMonthData: [],
+        date: new Date(),
+    });
+    stock.cabinet.push(cabinet);
+    await stock.save();
     //grabbing user and logging
     const currentUser = await User.findById(req.user._id)
     const log = new Log({ message: `Created Cabinet: ${cabinet.name}`, date: Date() });

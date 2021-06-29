@@ -1,0 +1,14 @@
+<% layout("layouts/boilerplate") %>
+
+<h1>this is where stock reports will be displayed</h1>
+
+<% for (let cabinetStock of cabinetStocks) { %> 
+     
+    <h5>Date: <%= cabinetStock.date %> </h5>
+    <% for (let cabinet of cabinetStock.cabinet) { %> 
+        <h5>Stock: <%= cabinet.langley %> </h5>
+        <h5>Average Monthly Consumption: <%= cabinet.average %> </h5>
+        <h5>Leeway: <%= cabinet.leeway %> Days </h5>
+        <br>
+    <% } %> 
+<% } %> 
