@@ -28,7 +28,7 @@ module.exports.createCabinet = async (req, res) => {
     await cabinet.save();
     //creating a stock tracker for cabinet
     const stock = new Stock({
-        date: new Date(),
+        date: new Date().setMonth( new Date().getMonth() + 1),
     });
     stock.cabinet.push(cabinet);
     await stock.save();
@@ -85,7 +85,7 @@ module.exports.deleteCabinet = async (req, res) => {
     const log = new Log(
         {
             message: `Deleted Cabinet: ${cabinet.name}`,
-            date: new Date().setMonth( new Date().getMonth() + 1)
+            date: Date()
         }
     );
     
