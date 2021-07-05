@@ -3,6 +3,7 @@ const Cabinet = require('../models/cabinets');
 const User = require('../models/user');
 const Log = require('../models/logs');
 const Stock = require('../models/stock');
+const Unit = require('../models/units');
 const ExpressError = require('../utilities/ExpressError');
 const { findById } = require('../models/logs');
 
@@ -95,6 +96,8 @@ module.exports.deleteCabinet = async (req, res) => {
     await currentUser.save();
     //end
     //removing stock
+    const [unitId] = cabinet.units
+    if(unitId) { await Stock.findOneAndDelete({unit: {_id: unitId}})}
     await Stock.findOneAndDelete({cabinet: {_id: cabinet._id}})
     //done
     await Cabinet.findByIdAndDelete(id);

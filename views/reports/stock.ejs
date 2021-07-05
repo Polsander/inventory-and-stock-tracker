@@ -17,7 +17,6 @@
 <% for (let cabinetStock of cabinetStocks) { %>
     <div class="card card-display mb-2 shadow">
         <div class="card-body">
-            <h5>Date:<%=cabinetStock.date%> </h5>
             <% for (let cabinet of cabinetStock.cabinet) { %> 
                 <h3>Cabinet:  <%= cabinet.name %> </h3>
                 <h5>Stock: <span class="langley"><%= cabinet.langley %></span> </h5>
@@ -37,7 +36,6 @@
 <% for (let unitStock of unitStocks) { %>
     <div class="card card-display mb-2 shadow">
         <div class="card-body">
-            <h5>Date: <%= unitStock.date %> </h5>
             <% for (let unit of unitStock.unit) { %>
                 <h3>Unit: <%= unit.name %> </h3> 
                 <h5>Stock: <span class="langley"><%= unit.langley %></span>  </h5>
