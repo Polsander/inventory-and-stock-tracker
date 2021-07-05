@@ -1,14 +1,56 @@
 <% layout("layouts/boilerplate") %>
 
-<h1>this is where stock reports will be displayed</h1>
+<header>
+    <link rel="stylesheet" href="/stylesheets/stock.css">
+</header>
 
-<% for (let cabinetStock of cabinetStocks) { %> 
-     
-    <h5>Date: <%= cabinetStock.date %> </h5>
-    <% for (let cabinet of cabinetStock.cabinet) { %> 
-        <h5>Stock: <%= cabinet.langley %> </h5>
-        <h5>Average Monthly Consumption: <%= cabinet.average %> </h5>
-        <h5>Leeway: <%= cabinet.leeway %> Days </h5>
-        <br>
-    <% } %> 
+<div class="row mb-3">
+    <div class="text-end">
+        <form action="/reports">
+            <button class="btn btn-lg btn-primary">Back to Reports</button>
+        </form>
+    </div>
+</div>
+
+<h2>Cabinet Stock</h2>
+
+<% for (let cabinetStock of cabinetStocks) { %>
+    <div class="card card-display mb-2 shadow">
+        <div class="card-body">
+            <h5>Date:<%=cabinetStock.date%> </h5>
+            <% for (let cabinet of cabinetStock.cabinet) { %> 
+                <h3>Cabinet:  <%= cabinet.name %> </h3>
+                <h5>Stock: <span class="langley"><%= cabinet.langley %></span> </h5>
+                <h5>Average Monthly Consumption: <span class="average"><%= cabinetStock.average %></span> </h5>
+                <h5>Leeway: <span class="leeway"><%= cabinet.leeway %></span> <% if (cabinet.leeway) {%> Days <% } %>  </h5>
+                <div class="message warningText text-center">
+                    <p>hey</p>
+                </div>
+                <br> 
+            <% } %>
+        </div>
+    </div> 
 <% } %> 
+ 
+
+<h2 class="mt-5">Unit Stock</h2>
+<% for (let unitStock of unitStocks) { %>
+    <div class="card card-display mb-2 shadow">
+        <div class="card-body">
+            <h5>Date: <%= unitStock.date %> </h5>
+            <% for (let unit of unitStock.unit) { %>
+                <h3>Unit: <%= unit.name %> </h3> 
+                <h5>Stock: <span class="langley"><%= unit.langley %></span>  </h5>
+                <h5>Average Monthly Consumption: <span class="average"><%= unitStock.average %></span>  </h5>
+                <h5>Leeway: <span class="leeway"><%= unit.leeway %></span>  <% if (unit.leeway) {%> Days <% } %> </h5>
+                <div class="message warningText text-center">
+                    <p>hey</p>
+                </div>
+                <br>
+            <% } %> 
+        </div>
+    </div> 
+    
+<% } %> 
+
+<script src="/javascripts/stockUI/cabinetStock.js"></script>

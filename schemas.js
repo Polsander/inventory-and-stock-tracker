@@ -42,11 +42,12 @@ module.exports.cabinetEditSchema = Joi.object({
 
 module.exports.unitSchema = Joi.object({
     cabinet: Joi.object({
-        name: Joi.string().required().escapeHTML()
+        name: Joi.string().required().escapeHTML(),
     }).required(),
 
     unit: Joi.object({
         name: Joi.string().required().escapeHTML(),
+        leeway: Joi.number().required().integer().min(0)
     }).required()
 });
 
@@ -58,6 +59,7 @@ module.exports.unitSchemaEdit = Joi.object({
     unit: Joi.object({
         name: Joi.string().required().escapeHTML(),
         langley: Joi.number().required().integer().min(0),
+        leeway: Joi.number().required().integer().min(0)
     }).required()
 });
 

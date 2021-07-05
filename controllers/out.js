@@ -2,6 +2,7 @@ const Cabinet = require('../models/cabinets');
 const Unit = require('../models/units');
 const User = require('../models/user');
 const Log = require('../models/logs');
+const Stock = require('../models/stock');
 const ExpressError = require('../utilities/ExpressError');
 
 module.exports.selectScreen = (req, res) => {
@@ -27,6 +28,11 @@ module.exports.sendCabinetOut = async (req, res) => {
         );
     const currentUser = await User.findById(req.user._id);
     const log = new Log({message: `-${req.body.cabinet.langley} (${cabinet.name}) cabinets out to Nakusp`, date: Date()});
+    //stock algorithm tracking process
+    const [stockCabinet] = await Stock.find({cabinet: cabinet._id});
+    const updatedStock = await Stock.findOneAndUpdate({_id:stockCabinet._id}, {$push: {outData: parseInt(req.body.cabinet.langley)}});
+    await updatedStock.save();
+    //done
     log.users.push(currentUser);
     currentUser.logs.push(log);
     await log.save();
@@ -52,6 +58,11 @@ module.exports.sendUnitOut = async (req, res) => {
                 langley: parseFloat(unit.langley) - parseFloat(req.body.unit.langley)
             }
         );
+    //stock algorithm tracking process
+    const [stockUnit] = await Stock.find({unit: unit._id});
+    const updatedStock = await Stock.findOneAndUpdate({_id:stockUnit._id}, {$push: {outData: parseInt(req.body.unit.langley)}});
+    await updatedStock.save();
+    //done
     const currentUser = await User.findById(req.user._id);
     const log = new Log({message: `-${req.body.unit.langley} (${unit.name}) units out to customer`, date: Date()});
     log.users.push(currentUser);

@@ -13,6 +13,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
+const cron = require('node-cron');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -20,9 +21,9 @@ const LocalStrategy = require('passport-local');
 //Error Exports
 const ExpressError = require('./utilities/ExpressError');
 
-//User Model
+//Models
 const User = require('./models/user');
-
+const Stock = require('./models/stock');
 
 //Database connections 
 const db_Url = process.env.DB_URL;
@@ -31,7 +32,7 @@ const MongoStore = require('connect-mongo');
 
 const store = MongoStore.create({
     mongoUrl: db_Url,
-    touchAfter: 24*60*60,
+    touchAfter: 24 * 60 * 60,
     crypto: {
         secret: process.env.DB_SECRET
     }
@@ -39,7 +40,7 @@ const store = MongoStore.create({
 
 //'mongodb://localhost:27017/azco'
 // ^^ connect to link above for local dev - production will be db_Url
-mongoose.connect(db_Url,{
+mongoose.connect('mongodb://localhost:27017/azco', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -49,22 +50,22 @@ mongoose.connect(db_Url,{
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
-db.once("open", ()=> {
+db.once("open", () => {
     console.log("Database connected");
 });
 
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
-app.set ('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
     name: 'def',
-    store, //--- Must enable this in production so we use the mongo session (in DEPLOYMENT).
+    //store, //--- Must enable this in production so we use the mongo session (in DEPLOYMENT).
     secret: process.env.DB_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -114,7 +115,7 @@ const landingPageRoute = require('./routes/landingPage')
 app.use(mainTrackerRoute);
 app.use('/cabinets', cabinetRoutes);
 app.use('/units', unitRoutes);
-app.use('/admin', adminRoutes )
+app.use('/admin', adminRoutes)
 app.use(reigsterRoutes);
 app.use(loginRoutes);
 app.use(logoutRoutes);
@@ -124,17 +125,59 @@ app.use(outRoutes);
 app.use(reportRoutes);
 app.use(landingPageRoute);
 
+//---scheduled node functions ---\\
+cron.schedule('0 */12 * * *', async function () {
+    const stocks = await Stock.find({});
+    //logic for updating average
+    for (let stock of stocks) {
+        let { outData, totalMonthData, date } = stock
 
-//--------Error Handelling--------\\
-app.all('*', (req,res,next) => {
-    next(new ExpressError('Page Not Found',404))
+        if (date <= new Date()) {
+            await Stock.findByIdAndUpdate(stock._id, {date: date.setMonth(date.getMonth() + 1)})
+            if (outData.length === 0) { //add 0 to sum, push that into month total
+                const newModel = await Stock.findByIdAndUpdate(stock._id, { $push: { totalMonthData: 0 } }, { new: true });
+
+            } else { // sum all out data, push that into month total
+                const summate = (accumulator, currentValue) => accumulator + currentValue;
+                const sum = outData.reduce(summate);
+                await Stock.findByIdAndUpdate(stock._id,
+                    {
+                        $push: { totalMonthData: parseInt(sum) },
+                        outData: []
+                    },
+                    { new: true }
+                );
+            }
+            //check if total totalMonthData.length >= 4, create an average of those numbers then remove index [0]
+            const newModel = await Stock.findById(stock._id)
+            if (newModel.totalMonthData.length > 3) {
+
+                const summate = (accumulator, currentValue) => accumulator + currentValue;
+                const avg = newModel.totalMonthData.reduce(summate) / newModel.totalMonthData.length
+                const updatedMonthData = newModel.totalMonthData.splice(0, 1)
+                const test = await Stock.findByIdAndUpdate(stock._id,
+                    {
+                        average: avg,
+                        $set: { totalMonthData: newModel.totalMonthData }
+                    },
+                    { new: true }
+                )
+
+            }
+        }
+    }
 });
 
-app.use((err,req,res,next) => {
-    if(!err.message) { err.message = 'Oh no! Something went wrong!'}
-    if(err.satusCode > 599 || err.statusCode === undefined) {err.statusCode = 500}
-    if (res.status){
-    res.status(err.statusCode).render('error', {err})
+//--------Error Handelling--------\\
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+});
+
+app.use((err, req, res, next) => {
+    if (!err.message) { err.message = 'Oh no! Something went wrong!' }
+    if (err.satusCode > 599 || err.statusCode === undefined) { err.statusCode = 500 }
+    if (res.status) {
+        res.status(err.statusCode).render('error', { err })
     }
 });
 
@@ -142,7 +185,7 @@ app.use((err,req,res,next) => {
 //port service
 //special port for Heroku, for dev just use 3000
 const port = process.env.PORT
-app.listen(port, () => console.log('serving on heroku'));
-//app.listen(3000, () => console.log('serving on port 3000'));
+//app.listen(port, () => console.log('serving on heroku'));
+app.listen(3000, () => console.log('serving on port 3000'));
 
 //when going into production, don't forget to comment in the appropriate link located in rest.js (controllers)

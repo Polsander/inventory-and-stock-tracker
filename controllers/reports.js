@@ -17,14 +17,8 @@ module.exports.deleteReport = async (req, res) => {
 };
 
 module.exports.renderStock = async (req, res) => {
-    const cabinetStocks = await Stock.find({}).populate({ path: 'cabinet' });
-
-    //logic for updating average
-    // for (let cabinetStock of cabinetStocks) {
-    //     if (cabinetStock.date < new Date()) {
-    //         console.log('update would occur here');
-    //         await Stock.findByIdAndUpdate(cabinetStock._id, { date: cabinetStock.date.setMinutes(cabinetStock.date.getMinutes() + 2) })
-    //     }
-    // }
-    res.render('reports/stock', { cabinetStocks })
+    const cabinetStocks = await Stock.find({cabinet: {$size: 1}}).populate({ path: 'cabinet' });
+    
+    const unitStocks = await Stock.find({unit: {$size: 1}}).populate({path: 'unit'});
+    res.render('reports/stock', { cabinetStocks, unitStocks })
 }

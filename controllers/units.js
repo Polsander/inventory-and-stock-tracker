@@ -2,6 +2,7 @@ const Cabinet = require('../models/cabinets');
 const User = require('../models/user');
 const Log = require('../models/logs');
 const Unit = require('../models/units');
+const Stock = require('../models/stock');
 
 module.exports.renderUnitsList = async (req, res) => {
     const cabinets = await Cabinet.find({}).populate('units')
@@ -15,11 +16,19 @@ module.exports.renderNewUnitPage = async (req, res) => {
 
 module.exports.createNewUnit = async (req, res) => {
     const findCabinet = await Cabinet.find({ name: req.body.cabinet.name })
-    const unit = new Unit({ name: req.body.unit.name, langley: 0 });
+    const unit = new Unit({ name: req.body.unit.name, langley: 0, leeway: req.body.unit.leeway });
     const cabinet = findCabinet[0]
     cabinet.units.push(unit);
+    //creating unit stock
+    const stock = new Stock({
+        date: new Date().setMonth( new Date().getMonth() + 1),
+    });
+    stock.unit.push(unit);
+    //done
+    await stock.save();
     await unit.save();
     await cabinet.save();
+    
 
     //grabbing user and logging
     const currentUser = await User.findById(req.user._id)
@@ -84,6 +93,9 @@ module.exports.editUnit = async (req, res) => {
 module.exports.deleteUnit = async (req, res) => {
     await Cabinet.findByIdAndUpdate(req.params.cabinetId, { $pull: { units: req.params.id } });
     const unit = await Unit.findById(req.params.id);
+    //removing stock
+    await Stock.findOneAndDelete({unit: {_id: unit._id}})
+    //done
     //log user action
     const currentUser = await User.findById(req.user._id)
     const log = new Log(

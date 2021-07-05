@@ -28,8 +28,6 @@ module.exports.createCabinet = async (req, res) => {
     await cabinet.save();
     //creating a stock tracker for cabinet
     const stock = new Stock({
-        outData: [],
-        totalMonthData: [],
         date: new Date(),
     });
     stock.cabinet.push(cabinet);
@@ -87,14 +85,18 @@ module.exports.deleteCabinet = async (req, res) => {
     const log = new Log(
         {
             message: `Deleted Cabinet: ${cabinet.name}`,
-            date: Date()
+            date: new Date().setMonth( new Date().getMonth() + 1)
         }
     );
+    
     log.users.push(currentUser);
     currentUser.logs.push(log);
     await log.save();
     await currentUser.save();
     //end
+    //removing stock
+    await Stock.findOneAndDelete({cabinet: {_id: cabinet._id}})
+    //done
     await Cabinet.findByIdAndDelete(id);
 
     req.flash('warning', 'Cabinet, and All Corresponding Units Deleted')

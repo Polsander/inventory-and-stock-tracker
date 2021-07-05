@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Unit = require('./units')
+const Stock = require('./stock');
 
 const CabinetSchema = new Schema({
     name: String,
@@ -29,5 +30,6 @@ CabinetSchema.post('findOneAndDelete', async function (doc) {
         })
     }
 })
+
 
 module.exports = mongoose.model('Cabinet', CabinetSchema);

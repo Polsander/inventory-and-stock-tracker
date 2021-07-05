@@ -19,8 +19,6 @@ module.exports.loginUser = async(req,res) => {
 
     //update stock upon login
     const cabinetStocks = await Stock.find({cabinet:{$size: 1}}); //this will only select cabinet stocks (not unit)
-    console.log(cabinetStocks);
-    console.log('stocks that pertain to cabinets^');
     
 
     // for (let cabinetStock of cabinetStocks) {
