@@ -2,7 +2,7 @@
 function test() {
     const cardSelector = document.querySelectorAll('.card-display');
     const langleySelector = document.querySelectorAll('.langley');
-    const leewaySelector = document.querySelectorAll('.leeway');
+    const leadTimeSelector = document.querySelectorAll('.leadTime');
     const averageSelector = document.querySelectorAll('.average');
 
     const message = document.querySelectorAll(".warningText");
@@ -10,7 +10,7 @@ function test() {
 
     for(let i=0; i<langleySelector.length; i++) {
          const langley = parseFloat(langleySelector[i].innerText);
-         const leeway = parseFloat(leewaySelector[i].innerText);
+         const leeway = parseFloat(leadTimeSelector[i].innerText);
          const average = parseFloat(averageSelector[i].innerText);
 
          const estimatedDaysLeft = (langley/average) * 30

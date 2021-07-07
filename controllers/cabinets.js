@@ -21,7 +21,7 @@ module.exports.createCabinet = async (req, res) => {
     const cabinet = new Cabinet(
         {
             name: req.body.cabinet.name,
-            leeway: req.body.cabinet.leeway,
+            leadTime: req.body.cabinet.leadTime,
             langley: 0,
             nakusp: 0
         }

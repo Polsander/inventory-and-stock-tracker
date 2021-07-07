@@ -16,7 +16,7 @@ module.exports.renderNewUnitPage = async (req, res) => {
 
 module.exports.createNewUnit = async (req, res) => {
     const findCabinet = await Cabinet.find({ name: req.body.cabinet.name })
-    const unit = new Unit({ name: req.body.unit.name, langley: 0, leeway: req.body.unit.leeway });
+    const unit = new Unit({ name: req.body.unit.name, langley: 0, leadTime: req.body.unit.leadTime });
     const cabinet = findCabinet[0]
     cabinet.units.push(unit);
     //creating unit stock

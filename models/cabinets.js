@@ -9,7 +9,7 @@ const CabinetSchema = new Schema({
     langley: Number,
     // nakusp is the quantity of cabinets that are located in nakusp
     nakusp: Number,
-    leeway: Number, //number of days for receiving incoming shipments
+    leadTime: Number, //number of days for receiving incoming shipments
     units: [
         {
             type: Schema.Types.ObjectId,

@@ -21,7 +21,7 @@
                 <h3>Cabinet:  <%= cabinet.name %> </h3>
                 <h5>Stock: <span class="langley"><%= cabinet.langley %></span> </h5>
                 <h5>Average Monthly Consumption: <span class="average"><%= cabinetStock.average %></span> </h5>
-                <h5>Leeway: <span class="leeway"><%= cabinet.leeway %></span> <% if (cabinet.leeway) {%> Days <% } %>  </h5>
+                <h5>Lead Time: <span class="leadTime"><%= cabinet.leadTime %></span> <% if (cabinet.leadTime) {%> Days <% } %>  </h5>
                 <div class="message warningText text-center">
                     <p>hey</p>
                 </div>
@@ -40,7 +40,7 @@
                 <h3>Unit: <%= unit.name %> </h3> 
                 <h5>Stock: <span class="langley"><%= unit.langley %></span>  </h5>
                 <h5>Average Monthly Consumption: <span class="average"><%= unitStock.average %></span>  </h5>
-                <h5>Leeway: <span class="leeway"><%= unit.leeway %></span>  <% if (unit.leeway) {%> Days <% } %> </h5>
+                <h5>Lead Time: <span class="leadTime"><%= unit.leadTime %></span>  <% if (unit.leadTime) {%> Days <% } %> </h5>
                 <div class="message warningText text-center">
                     <p>hey</p>
                 </div>
