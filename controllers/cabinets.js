@@ -29,7 +29,8 @@ module.exports.createCabinet = async (req, res) => {
     await cabinet.save();
     //creating a stock tracker for cabinet
     const stock = new Stock({
-        date: new Date().setMonth( new Date().getMonth() + 1),
+        //date: new Date().setMonth( new Date().getMonth() + 1),
+        date: new Date()
     });
     stock.cabinet.push(cabinet);
     await stock.save();

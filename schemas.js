@@ -46,8 +46,7 @@ module.exports.unitSchema = Joi.object({
     }).required(),
 
     unit: Joi.object({
-        name: Joi.string().required().escapeHTML(),
-        leadTime: Joi.number().required().integer().min(0)
+        name: Joi.string().required().escapeHTML()
     }).required()
 });
 
@@ -58,8 +57,7 @@ module.exports.unitSchemaEdit = Joi.object({
 
     unit: Joi.object({
         name: Joi.string().required().escapeHTML(),
-        langley: Joi.number().required().integer().min(0),
-        leadTime: Joi.number().required().integer().min(0)
+        langley: Joi.number().required().integer().min(0)
     }).required()
 });
 

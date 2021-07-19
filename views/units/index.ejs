@@ -14,6 +14,7 @@
                 <th scope="col"> Unit Name</th>
                 <th scope="col">Cabinet</th>
                 <th scope="col">Quantity (Langley)</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         
@@ -37,7 +38,24 @@
                         <td>
                             <%= unit.langley %>
                         </td>
-                        
+
+                        <td>
+                            <% for (let stock of stocks) { %> 
+                                <% for (let stockCabinet of stock.cabinet) {%>  
+                                    <% if (stockCabinet.equals(openCabinet._id)) { %>
+                                        <% if (stock.average <= unit.langley) { %>
+                                            <a href="/reports/stock">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#359f2a" stroke-width="4" stroke-linecap="square" stroke-linejoin="arcs"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                            </a> 
+                                        <% } else { %> 
+                                            <a href="/reports/stock">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f2b817" stroke-width="3" stroke-linecap="square" stroke-linejoin="arcs"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </a>
+                                        <% } %> 
+                                    <% } %>  
+                                <% } %> 
+                            <% } %> 
+                        </td>
                     </tr>
                     <% columnNumber++ %>
                 <% } %>

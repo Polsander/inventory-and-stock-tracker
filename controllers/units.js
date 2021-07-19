@@ -6,7 +6,8 @@ const Stock = require('../models/stock');
 
 module.exports.renderUnitsList = async (req, res) => {
     const cabinets = await Cabinet.find({}).populate('units')
-    res.render('units/index', { cabinets });
+    const stocks = await Stock.find({})
+    res.render('units/index', { cabinets, stocks });
 };
 
 module.exports.renderNewUnitPage = async (req, res) => {
@@ -16,12 +17,13 @@ module.exports.renderNewUnitPage = async (req, res) => {
 
 module.exports.createNewUnit = async (req, res) => {
     const findCabinet = await Cabinet.find({ name: req.body.cabinet.name })
-    const unit = new Unit({ name: req.body.unit.name, langley: 0, leadTime: req.body.unit.leadTime });
+    const unit = new Unit({ name: req.body.unit.name, langley: 0 });
     const cabinet = findCabinet[0]
     cabinet.units.push(unit);
     //creating unit stock
     const stock = new Stock({
-        date: new Date().setMonth( new Date().getMonth() + 1),
+        //date: new Date().setMonth( new Date().getMonth() + 1),
+        date: new Date()
     });
     stock.unit.push(unit);
     //done

@@ -29,9 +29,9 @@ module.exports.sendCabinetOut = async (req, res) => {
     const currentUser = await User.findById(req.user._id);
     const log = new Log({message: `-${req.body.cabinet.langley} (${cabinet.name}) cabinets out to Nakusp`, date: Date()});
     //stock algorithm tracking process
-    const [stockCabinet] = await Stock.find({cabinet: cabinet._id});
-    const updatedStock = await Stock.findOneAndUpdate({_id:stockCabinet._id}, {$push: {outData: parseInt(req.body.cabinet.langley)}});
-    await updatedStock.save();
+    // -const [stockCabinet] = await Stock.find({cabinet: cabinet._id});
+    // -const updatedStock = await Stock.findOneAndUpdate({_id:stockCabinet._id}, {$push: {outData: parseInt(req.body.cabinet.langley)}});
+    // -await updatedStock.save();
     //done
     log.users.push(currentUser);
     currentUser.logs.push(log);
@@ -59,8 +59,11 @@ module.exports.sendUnitOut = async (req, res) => {
             }
         );
     //stock algorithm tracking process
-    const [stockUnit] = await Stock.find({unit: unit._id});
-    const updatedStock = await Stock.findOneAndUpdate({_id:stockUnit._id}, {$push: {outData: parseInt(req.body.unit.langley)}});
+    //const [stockUnit] = await Stock.find({unit: unit._id});
+    const [cabinet] = await Cabinet.find({units: unit._id});
+    console.log(cabinet);
+    const [stockCabinet] = await Stock.find({cabinet: cabinet._id});
+    const updatedStock = await Stock.findOneAndUpdate({_id:stockCabinet._id}, {$push: {outData: parseInt(req.body.unit.langley)}});
     await updatedStock.save();
     //done
     const currentUser = await User.findById(req.user._id);
