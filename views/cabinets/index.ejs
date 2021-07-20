@@ -22,6 +22,11 @@
 
                 <tbody class="text-center">
                     <% let i=1 %>
+                     <% cabinets.sort((a,b) => {  %>
+                     <% if (a.name < b.name) {return -1} %>  
+                     <% if (a.name > b.name) {return 1} %>
+                     <% return 0 %>  
+                     <% }) %> 
                         <% for (let cabinet of cabinets) { %>
                             <tr>
                                 <th scope="row">
