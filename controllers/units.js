@@ -22,8 +22,8 @@ module.exports.createNewUnit = async (req, res) => {
     cabinet.units.push(unit);
     //creating unit stock
     const stock = new Stock({
-        //date: new Date().setMonth( new Date().getMonth() + 1),
-        date: new Date()
+        date: new Date().setMonth( new Date().getMonth() + 1),
+        //date: new Date()
     });
     stock.unit.push(unit);
     //done
