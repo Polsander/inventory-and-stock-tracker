@@ -61,7 +61,6 @@ module.exports.sendUnitOut = async (req, res) => {
     //stock algorithm tracking process
     //const [stockUnit] = await Stock.find({unit: unit._id});
     const [cabinet] = await Cabinet.find({units: unit._id});
-    console.log(cabinet);
     const [stockCabinet] = await Stock.find({cabinet: cabinet._id});
     const updatedStock = await Stock.findOneAndUpdate({_id:stockCabinet._id}, {$push: {outData: parseInt(req.body.unit.langley)}});
     await updatedStock.save();

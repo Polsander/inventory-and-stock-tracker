@@ -135,7 +135,7 @@ cron.schedule('0 */12 * * *', async function () {
         let { outData, totalMonthData, date } = stock
 
         if (date <= new Date()) {
-            //await Stock.findByIdAndUpdate(stock._id, {date: date.setMonth(date.getMonth() + 1)})
+            await Stock.findByIdAndUpdate(stock._id, {date: date.setMonth(date.getMonth() + 1)})
             if (outData.length === 0) { //add 0 to sum, push that into month total
                 const newModel = await Stock.findByIdAndUpdate(stock._id, { $push: { totalMonthData: 0 } }, { new: true });
 
