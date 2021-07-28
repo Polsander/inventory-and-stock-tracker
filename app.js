@@ -38,7 +38,6 @@ const store = MongoStore.create({
     }
 });
 
-//'mongodb://localhost:27017/azco'
 // ^^ connect to link above for local dev - production will be db_Url
 mongoose.connect(db_Url, {
     useNewUrlParser: true,
@@ -187,7 +186,6 @@ app.use((err, req, res, next) => {
 //port service
 //special port for Heroku, for dev just use 3000
 const port = process.env.PORT
-app.listen(port, () => console.log('serving on heroku'));
 //app.listen(3000, () => console.log('serving on port 3000'));
 
 //when going into production, don't forget to comment in the appropriate link located in rest.js (controllers)
