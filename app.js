@@ -26,7 +26,8 @@ const User = require('./models/user');
 const Stock = require('./models/stock');
 
 //Database connections 
-const db_Url = process.env.DB_URL;
+// const db_Url = process.env.DB_URL;
+db_Url = 'mongodb://localhost:27017/testdb'
 
 const MongoStore = require('connect-mongo');
 
@@ -65,7 +66,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 const sessionConfig = {
     name: 'def',
     store, //--- Must enable this in production so we use the mongo session (in DEPLOYMENT).
-    secret: process.env.DB_SECRET,
+    //secret: process.env.DB_SECRET,
+    secret: 'MakeBetter',
     resave: false,
     saveUninitialized: true,
     cookie: {
