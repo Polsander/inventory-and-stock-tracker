@@ -26,8 +26,8 @@ const User = require('./models/user');
 const Stock = require('./models/stock');
 
 //Database connections 
-// const db_Url = process.env.DB_URL;
-db_Url = 'mongodb://localhost:27017/testdb'
+const db_Url = process.env.DB_URL;
+// db_Url = 'mongodb://localhost:27017/testdb'
 
 const MongoStore = require('connect-mongo');
 
@@ -66,8 +66,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 const sessionConfig = {
     name: 'def',
     store, //--- Must enable this in production so we use the mongo session (in DEPLOYMENT).
-    //secret: process.env.DB_SECRET,
-    secret: 'MakeBetter',
+    secret: process.env.DB_SECRET,
+    // secret: 'MakeBetter',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -188,6 +188,6 @@ app.use((err, req, res, next) => {
 //port service
 //special port for Heroku, for dev just use 3000
 const port = process.env.PORT
-//app.listen(3000, () => console.log('serving on port 3000'));
+app.listen(port, () => console.log(`serving on port ${port}`));
 
 //when going into production, don't forget to comment in the appropriate link located in rest.js (controllers)
