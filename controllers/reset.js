@@ -70,7 +70,7 @@ module.exports.forgotPasswordSubmissionAdmin = async(req,res,next) => {
     };
     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
     
-    const link = `https://azcoinventory.herokuapp.com/reset-password/${user._id}/${token}`
+    const link = `https://azco-stock-tracker.onrender.com/reset-password/${user._id}/${token}`
     //const link = `http://localhost:3000/reset-password/${user._id}/${token}`
     
     console.log(link);
