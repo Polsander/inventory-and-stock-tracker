@@ -27,7 +27,7 @@ module.exports.forgotPasswordSubmission = async(req, res) => {
     };
     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
     
-    const link = `https://azcoinventory.herokuapp.com/reset-password/${user._id}/${token}`
+    const link = `https://azco-stock-tracker.onrender.com/reset-password/${user._id}/${token}`
     //const link = `localhost:3000/reset-password/${user._id}/${token}`
     // Here is code where the user is sent an email of this link
     const message = {
