@@ -4,9 +4,9 @@ const reset = require('../controllers/reset');
 
 const catchAsync = require('../utilities/catchAsync');
 const ExpressError = require('../utilities/ExpressError');
-const sgMail = require('@sendgrid/mail');
+// const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //sg = new SendGrid(System.getenv('EMAIL_API_KEY'))
 
 //Validation Middleware - Protect blank submissions from happening
@@ -30,7 +30,7 @@ const validatePasswordReset = (req, res, next) => {
 
 router.get('/forgot', reset.getResetForm);
 
-router.post('/forgot', catchAsync( reset.forgotPasswordSubmission));
+router.post('/forgot', catchAsync( reset.forgotPasswordSubmissionSIB));
 
 router.post('/forgot/:username', catchAsync( reset.forgotPasswordSubmissionAdmin));
 
