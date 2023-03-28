@@ -1,11 +1,7 @@
 const jwt = require('jsonwebtoken');
 const ExpressError = require('../utilities/ExpressError');
-const sgMail = require('@sendgrid/mail');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const User = require('../models/user');
-
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-//sg = new SendGrid(System.getenv('EMAIL_API_KEY'))
 
 //email reset set-up config below
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
@@ -16,49 +12,6 @@ apiKey.apiKey = process.env.SIB_API_KEY;
 module.exports.getResetForm = (req, res) => {
     res.render('users/forgot');
 };
-
-// module.exports.forgotPasswordSubmission = async(req, res) => {
-//     const {username} = req.body;
-//     //Make sure User Exists
-//     const [user] = await User.find({username: username});
-//     if (!user) {
-//         req.flash('error', 'No User Belonging to that Email');
-//         return res.redirect('/forgot');
-//     };
-//     const secret = process.env.JWT_SECRET;
-//     const payload = {
-//         email: user.email,
-//         id: user._id,
-//         username: user.username
-//     };
-//     const token = jwt.sign(payload, secret, {expiresIn: '20m'});
-
-//     const link = `https://azco-stock-tracker.onrender.com/reset-password/${user._id}/${token}`
-//     //const link = `localhost:3000/reset-password/${user._id}/${token}`
-//     // Here is code where the user is sent an email of this link
-//     const message = {
-//         to: user.email,
-//         from: 'jstuchlik@gmail.com',
-//         subject: 'AZCO Inventory Tracker - Reset Password',
-//         text: `A password reset has been requested for your account,
-//         please follow this link to reset your password: ${link}`,
-//         html:"<h3> A password reset has been requested for your account</h3>" +
-//          "<p> Follow this link to reset your password: </p>" +
-//         `<a href="${link}">${link}</a>` +
-//         "<p>If you did not make a reset password request, you can safely ignore this email." +
-//         "The link token will expire in 20 minutes from when the request was made. </p>",
-//     }
-//     try {
-//         await sgMail.send(message).then(console.log('email sent'));
-//     } catch(e) {
-//         return res.send(e)
-//     }
-//     //console.log(link);
-//     // Redirecting the user to the forgot form
-//     req.flash('success', 'An email has been sent with further instructions');
-//     res.redirect('/forgot');
-
-// };
 
 module.exports.forgotPasswordSubmissionSIB = async (req, res) => {
     const { username } = req.body;
