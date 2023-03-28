@@ -76,13 +76,8 @@ module.exports.forgotPasswordSubmissionAdmin = async (req, res, next) => {
         username: user.username
     };
     const token = jwt.sign(payload, secret, { expiresIn: '20m' });
-
-    const link = `https://azco-stock-tracker.onrender.com/reset-password/${user._id}/${token}`
-    //const link = `http://localhost:3000/reset-password/${user._id}/${token}`
-
-    console.log(link);
     // Redirecting the user to the forgot form
-    res.redirect(link);
+    res.redirect(`/reset-password/${user._id}/${token}`);
 }
 
 module.exports.renderResetPassword = async (req, res, next) => {
