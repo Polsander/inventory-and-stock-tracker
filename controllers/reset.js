@@ -3,6 +3,7 @@ const ExpressError = require('../utilities/ExpressError');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const User = require('../models/user');
 
+
 //email reset set-up config below
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
@@ -51,13 +52,15 @@ module.exports.forgotPasswordSubmissionSIB = async (req, res) => {
 
     };
 
-    apiInstance.sendTransacEmail(sendSmtpEmail).then(function() {
-        console.log('API called successfully.');
+    try {
+        await apiInstance.sendTransacEmail(sendSmtpEmail);
+        console.log('API Called successfully');
         req.flash('success', 'An email has been sent with further instructions');
         res.redirect('/forgot');
-    }, function(error) {res.send(error)});
 
-
+    } catch(e) {
+        throw new ExpressError(e, 403);
+    }
 
 }
 
